@@ -7,25 +7,22 @@ const ActionList = (props) => {
     <div className="actions-list">
       <List
         grid={{
-          gutter: 16,
+          gutter: 10,
           xs: 1,
           sm: 2,
-          md: 4,
+          md: 2,
           lg: 4,
-          xl: 6,
-          xxl: 3,
+          xl: 4,
+          xxl: 4,
         }}
         split
         size="small"
         header={<div>head</div>}
         bordered
         dataSource={props.actions}
-        renderItem={(action) => (
+        renderItem={(action, index) => (
           <List.Item>
-            <ActionItem
-              action={action}
-              conditions={props.conditions}
-            ></ActionItem>
+            <ActionItem action={action} index={index}></ActionItem>
           </List.Item>
         )}
       ></List>
@@ -35,7 +32,6 @@ const ActionList = (props) => {
 
 export default connect(
   (state) => ({
-    conditions: state.conditions,
     actions: state.actions,
   }),
   {}

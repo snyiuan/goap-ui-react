@@ -3,6 +3,7 @@ import { Button, Space, Modal, Input, message } from "antd";
 import { TASK, ACTION } from "./target-type";
 import { connect } from "react-redux";
 import { addAction, addTask } from "../../redux/actions/actions";
+import store from "../../redux/store";
 
 const HeadNav = ({ dispatch }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -47,6 +48,7 @@ const HeadNav = ({ dispatch }) => {
   };
 
   const handleGenerator = () => {
+    console.log(store);
     console.log("handleGenerator");
   };
   return (

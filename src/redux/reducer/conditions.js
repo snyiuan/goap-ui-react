@@ -1,19 +1,36 @@
-import { RECEIVECONDITIONS, REMOVECONDITION, ADDCONDITION, CHANGECONDITION } from '../actions/actions-types';
-// state = ['a', 'b', 'c', 'd', 'e', 'f']
+import {
+    RECEIVECONDITIONS, REMOVECONDITION,
+    ADDCONDITION, CHANGECONDITION,
+} from '../actions/actions-types';
+import { message } from 'antd';
 
-const conditions = (state = { conditions: [] }, action) => {
-    console.log('store...', state);
+const conditions = (state = [{ name: 'condition a', repeated: false }, { name: 'condition b', repeated: false }], action) => {
     switch (action.type) {
         case ADDCONDITION:
-            state.conditions.push(action.data)
-            return state
+            if (state.find(val => val.name === action.name)) {
+                message.info("Conditions are repeated!", 0.5)
+                return state
+            } else {
+                return [...state, { name: action.name }]
+            }
         case REMOVECONDITION:
-            return state.conditions.splice(action.data, 1);
+            state.splice(action.index, 1);
+
+            return [...state]
+
         case RECEIVECONDITIONS:
             return state;
+
         case CHANGECONDITION:
-            state.conditions.splice(action.index, 1, action.value)
-            return state;
+            //todo...
+            if (state.find(val => val.name === action.name)) {
+                state[action.index].repeated = true;
+            } else {
+                state[action.index].repeated = false;
+            }
+            state[action.index].name = action.name
+            return [...state];
+
         default:
             return state;
     }

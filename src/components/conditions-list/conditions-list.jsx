@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-// import React from "react";
-import ConditionItem from "../condition-item/condition-item";
+import ConditionItem from "./condition-item";
 import { connect } from "react-redux";
 import { Row, Col, Button, List, Input, Modal } from "antd";
 import { PlusCircleOutlined } from "@ant-design/icons";
-import "./conditions.css";
-import store from "../../redux/store";
 import { addCondition } from "../../redux/actions/actions";
+import "./conditions.css";
 
 const Conditions = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -21,7 +19,7 @@ const Conditions = (props) => {
   };
 
   const handleOk = () => {
-    store.dispatch(addCondition(inputName));
+    props.dispatch(addCondition(inputName));
     setIsModalVisible(false);
     setInputName("");
   };
@@ -53,9 +51,7 @@ const Conditions = (props) => {
         item-layout="horizontal"
         renderItem={(item, index) => (
           <List.Item>
-            <ConditionItem condition={item} index={index}>
-              {item}
-            </ConditionItem>
+            <ConditionItem condition={item} index={index}></ConditionItem>
           </List.Item>
         )}
       ></List>
@@ -75,87 +71,6 @@ const Conditions = (props) => {
   );
 };
 
-// const Conditions = (props) => {
-//   return (
-//     <>
-//       <ul>
-//         {props.conditions.map((condition, index) => (
-//           <ConditionItem condition={condition} key={index}></ConditionItem>
-//         ))}
-//       </ul>
-//     </>
-//   );
-// };
-
 export default connect((state) => ({
-  conditions: state.conditions.conditions,
+  conditions: state.conditions,
 }))(Conditions);
-
-// export default class Conditions extends Component {
-//   render() {
-//     return <div>Conditions</div>;
-//   }
-// }
-
-/* class Conditions extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isModalVisible: false,
-    };
-  }
-  setIsModalVisible(val) {
-    this.setState({
-      isModalVisible: val,
-    });
-  }
-  showModal = () => {
-    this.setIsModalVisible(true);
-  };
-  handleOk = () => {
-    this.setIsModalVisible(false);
-  };
-  handleCancel = () => {
-    this.setIsModalVisible(false);
-  };
-  render() {
-    return (
-      <div>
-        <Row type="flex" justify="space-between">
-          <Col>CONDITIONS</Col>
-          <Button
-            onClick={this.showModal}
-            icon={PlusCircleOutlined}
-            size="small"
-            type="link"
-            shape="circle"
-          ></Button>
-        </Row>
-        <List
-          size="small"
-          data-source={this.props.conditions}
-          item-layout="vertical"
-        >
-          renderItem=
-          {(item, index) => (
-            <List.Item>
-              <ConditionItem
-                condition={item}
-                // conditions={conditions}
-              />
-            </List.Item>
-          )}
-        </List>
-
-        <Modal
-          title="Please enter message"
-          visible={this.isModalVisible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-        >
-          <Input type="text" aria-placeholder="Please enter condition" />
-        </Modal>
-      </div>
-    );
-  }
-} */

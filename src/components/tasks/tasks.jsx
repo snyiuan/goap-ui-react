@@ -1,25 +1,28 @@
+import { List } from "antd";
 import React from "react";
 import { connect } from "react-redux";
 import TaskItem from "./task-item";
+import "./tasks.css";
 
 const Tasks = (props) => {
   return (
-    <>
-      {props.tasks.map((task, index) => (
-        <TaskItem
-          key={index}
-          task={task}
-          conditions={props.conditions}
-        ></TaskItem>
-      ))}
-    </>
+    <div className="tasks">
+      <List
+        dataSource={props.tasks}
+        itemLayout="vertical"
+        renderItem={(task, index) => (
+          <List.Item>
+            <TaskItem task={task} index={index}></TaskItem>
+          </List.Item>
+        )}
+      ></List>
+    </div>
   );
 };
 
 export default connect(
   (state) => ({
     tasks: state.tasks,
-    conditions: state.conditions,
   }),
   {}
 )(Tasks);

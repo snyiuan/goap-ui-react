@@ -1,28 +1,64 @@
-import { Button, Card } from "antd";
+import { Button, Card, Input, Popconfirm } from "antd";
 import { MinusCircleOutlined } from "@ant-design/icons";
-import store from "../../redux/store";
+import PreConditions from "./preconditions";
+import PostConditions from "./postcondition";
+import { connect } from "react-redux";
+import {
+  changeCost,
+  changeActionName,
+  removeAction,
+} from "../../redux/actions/actions";
 
 const ActionItem = (props) => {
-  const handleRemove = () => {
-    console.log("handleRemove");
+  const handleRemoveAction = () => {
+    props.dispatch(removeAction(props.index));
   };
 
+  const handleChangeCost = (e) => {
+    props.dispatch(changeCost(props.index, e.target.value));
+  };
+
+  const handleChangename = (e) => {
+    props.dispatch(changeActionName(props.index, e.target.value));
+  };
   return (
     <Card
       title={props.action.name}
       extra={
-        <Button
-          icon={<MinusCircleOutlined />}
-          type="link"
-          size="small"
-          onClick={handleRemove}
-        ></Button>
+        <Popconfirm
+          title="Are you sure to remove this action?"
+          onConfirm={handleRemoveAction}
+          okText="Yes"
+          cancelText="No"
+        >
+          <Button
+            icon={<MinusCircleOutlined />}
+            type="link"
+            size="small"
+          ></Button>
+        </Popconfirm>
       }
     >
-      Card content-:
-      {store.getState().conditions.conditions[0]}
+      <Input
+        addonBefore="Name:"
+        value={props.action.name}
+        onChange={handleChangename}
+      ></Input>
+      <Input
+        addonBefore="Const:"
+        value={props.action.cost}
+        onChange={handleChangeCost}
+        type="number"
+      ></Input>
+      <PreConditions action={props.action} index={props.index}></PreConditions>
+      <PostConditions
+        action={props.action}
+        index={props.index}
+      ></PostConditions>
     </Card>
   );
 };
 
-export default ActionItem;
+export default connect((state) => ({
+  actions: state.actions,
+}))(ActionItem);

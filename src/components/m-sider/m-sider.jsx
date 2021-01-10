@@ -7,9 +7,7 @@ export default class MSider extends Component {
     return (
       <div>
         <Conditions></Conditions>
-        <div>
-          <Tasks></Tasks>
-        </div>
+        <Tasks></Tasks>
       </div>
     );
   }
