@@ -60,5 +60,5 @@ const ActionItem = (props) => {
 };
 
 export default connect((state) => ({
-  actions: state.actions,
+  actions: state.models.actions,
 }))(ActionItem);

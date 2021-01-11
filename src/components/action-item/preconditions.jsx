@@ -11,7 +11,6 @@ import Checkbox from "antd/lib/checkbox/Checkbox";
 const PreConditions = (props) => {
   const handleAdd = (actionIndex, targetIndex) => {
     props.dispatch(addPreCondition(actionIndex, targetIndex));
-    console.log("handleAdd");
   };
   const handleChecked = (actionIndex, targetIndex, e) => {
     props.dispatch(
@@ -69,6 +68,6 @@ const PreConditions = (props) => {
 };
 
 export default connect((state) => ({
-  actions: state.actions,
-  conditions: state.conditions,
+  actions: state.models.actions,
+  conditions: state.models.conditions,
 }))(PreConditions);

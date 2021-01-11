@@ -69,6 +69,6 @@ const postConditions = (props) => {
 };
 
 export default connect((state) => ({
-  actions: state.actions,
-  conditions: state.conditions,
+  actions: state.models.actions,
+  conditions: state.models.conditions,
 }))(postConditions);

@@ -10,7 +10,6 @@ const ConditionItem = (props) => {
   };
 
   const onChange = (e) => {
-    console.log(props.index, props.conditions);
     props.dispatch(changeCondition(props.index, e.target.value));
   };
 
@@ -44,5 +43,5 @@ const ConditionItem = (props) => {
 };
 
 export default connect((state) => ({
-  conditions: state.conditions,
+  conditions: state.models.conditions,
 }))(ConditionItem);

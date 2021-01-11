@@ -13,10 +13,8 @@ const HeadNav = ({ dispatch }) => {
   const handleOk = () => {
     if (inputName) {
       if (addType === TASK) {
-        console.log("taskkkk");
         dispatch(addTask(inputName));
       } else {
-        console.log("actionnnn");
         dispatch(addAction(inputName));
       }
     } else {

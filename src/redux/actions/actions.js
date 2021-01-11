@@ -35,7 +35,7 @@ export const addPostCondition = (actionIndex, targetIndex) => ({ type: ADDPOSTCO
 export const removePostCondition = (actionIndex, targetIndex) => ({ type: REMOVEPOSTCONDITION, actionIndex, targetIndex })
 export const changeCost = (actionIndex, value) => ({ type: CHANGECOST, actionIndex, value })
 export const changeActionName = (actionIndex, name) => ({ type: CHANGEACTIONNAME, actionIndex, name })
-export const removeAction = (index) => ({ type: REMOVEACTION, data: index })
+export const removeAction = (index) => ({ type: REMOVEACTION, index })
 
 const receiveConditions = (conditions) => ({ type: RECEIVECONDITIONS, data: conditions })
 

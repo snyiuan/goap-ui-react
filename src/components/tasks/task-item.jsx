@@ -98,6 +98,6 @@ const TaskItem = (props) => {
 };
 
 export default connect((state) => ({
-  conditions: state.conditions,
-  tasks: state.tasks,
+  conditions: state.models.conditions,
+  tasks: state.models.tasks,
 }))(TaskItem);

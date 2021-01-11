@@ -72,5 +72,5 @@ const Conditions = (props) => {
 };
 
 export default connect((state) => ({
-  conditions: state.conditions,
+  conditions: state.models.conditions,
 }))(Conditions);

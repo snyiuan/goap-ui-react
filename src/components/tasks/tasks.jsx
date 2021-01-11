@@ -22,7 +22,7 @@ const Tasks = (props) => {
 
 export default connect(
   (state) => ({
-    tasks: state.tasks,
+    tasks: state.models.tasks,
   }),
   {}
 )(Tasks);

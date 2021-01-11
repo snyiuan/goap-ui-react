@@ -1,13 +1,8 @@
 import { combineReducers } from 'redux';
-import conditions from './conditions';
-import actions from './actions';
-import tasks from './tasks';
+import models from './models';
 
 export default combineReducers(
     {
-        conditions,
-        actions,
-        tasks,
+        models,
     }
-
 )

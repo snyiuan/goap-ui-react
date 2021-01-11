@@ -48,7 +48,7 @@ App.prototype = {
   conditions: PropTypes.array.isRequired,
 };
 
-export default connect((state) => ({ conditions: state.conditions }), {
+export default connect((state) => ({ conditions: state.models.conditions }), {
   //methods  mapDispatchToProps
 })(App);
 
