@@ -7,6 +7,7 @@ import {
   removeGoal,
   removeTask,
   changeGoalChecked,
+  setMainTask,
 } from "../../redux/actions/actions";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 
@@ -28,6 +29,10 @@ const TaskItem = (props) => {
       changeGoalChecked(actionIndex, targetIndex, e.target.checked)
     );
   };
+  const handleSetMainTask = (e) => {
+    // console.log(e.target.checked);
+    props.dispatch(setMainTask(props.index, e.target.checked));
+  };
 
   const menu = (
     <Menu>
@@ -42,8 +47,15 @@ const TaskItem = (props) => {
   return (
     <>
       <Card
+        style={{
+          border: props.task.main ? "1px solid red" : "1px solid #d9d9d9",
+        }}
         size="small"
-        title={props.task.name}
+        title={
+          <Checkbox checked={props.task.main} onChange={handleSetMainTask}>
+            {props.task.name}
+          </Checkbox>
+        }
         extra={
           <Popconfirm
             title="Are you sure to remove this task?"
@@ -66,7 +78,6 @@ const TaskItem = (props) => {
               <Dropdown overlay={menu}>
                 <Button
                   size="small"
-                  className="ant-dropdown-link"
                   type="link"
                   icon={<PlusCircleOutlined />}
                 ></Button>
@@ -80,6 +91,7 @@ const TaskItem = (props) => {
               <Checkbox
                 checked={item.checked}
                 onChange={(e) => handleChangeChecked(props.index, index, e)}
+                style={{ color: item.checked ? "green" : "red" }}
               >
                 {props.conditions[item.index].name}
               </Checkbox>

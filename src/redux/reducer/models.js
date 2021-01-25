@@ -9,7 +9,8 @@ import {
     ADDPRECONDITION, REMOVEPRECONDITION,
     ADDPOSTCONDITION, REMOVEPOSTCONDITION,
     CHANGEPRECHECKED, CHANGEPOSTCHECKED,
-    REMOVEACTIONCONDITION
+    REMOVEACTIONCONDITION,
+    ADDWORLDSTATE, REMOVEWORLDSTATE, CHANGEWORLDSTATE, SETMAINTASK
 
 } from '../actions/actions-types';
 import { message } from 'antd';
@@ -36,9 +37,11 @@ const models = (state = {
     actions:
         [{ name: 'action1', cost: 0, preConditions: [], postConditions: [] }],
     tasks:
-        [{ name: 'task1', goalConditions: [] }]
+        [{ name: 'task1', main: false, goalConditions: [] }],
+    worldStates:
+        []
 }, action) => {
-    let { conditions, actions, tasks } = state;
+    let { conditions, actions, tasks, worldStates } = state;
     switch (action.type) {
         case ADDCONDITION:
             if (conditions.find(val => val.name === action.name)) {
@@ -101,7 +104,7 @@ const models = (state = {
                 message.info('Tasks are repeated!', 0.5)
                 return state
             } else {
-                tasks.push({ name: action.name, goalConditions: [] })
+                tasks.push({ name: action.name, main: false, goalConditions: [] })
                 return { ...state, tasks: [...tasks] }
             }
 
@@ -109,7 +112,14 @@ const models = (state = {
             tasks.splice(action.index, 1)
             message.success('Remove success!', 0.5)
             return { ...state, tasks: [...tasks] };
-
+        case SETMAINTASK:
+            if (action.checked) {
+                tasks.forEach(task => {
+                    task.main = false;
+                })
+            }
+            tasks[action.taskIndex].main = action.checked;
+            return { ...state, tasks: [...tasks] }
         case ADDGOAL:
             if (tasks[action.taskIndex].goalConditions.find((goal) => goal.index === action.targetIndex)) {
                 message.info('Goals are repeated!', 0.5)
@@ -199,6 +209,21 @@ const models = (state = {
             actions.splice(action.index, 1);
             return { ...state, actions: [...actions] }
 
+        case ADDWORLDSTATE:
+            if (worldStates.find(val => val.index === action.index)) {
+                message.info('world states are repeated!')
+                return state;
+            } else {
+                worldStates.push({ index: action.index, checked: false })
+                worldStates.sort((o, n) => o.index - n.index)
+                return { ...state, worldStates: [...worldStates] }
+            }
+        case REMOVEWORLDSTATE:
+            worldStates.splice(action.index, 1)
+            return { ...state, worldStates: [...worldStates] }
+        case CHANGEWORLDSTATE:
+            worldStates[action.index].checked = action.checked;
+            return { ...state, worldStates: [...worldStates] }
         default:
             return state;
     }

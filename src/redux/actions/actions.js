@@ -2,10 +2,10 @@ import {
     RECEIVECONDITIONS, ADDCONDITION, CHANGECONDITION, REMOVECONDITION,
     ADDACTION, REMOVEACTION,
     ADDGOAL, REMOVEGOAL, CHANGEGOALCHECKED,
-    ADDTASK, REMOVETASK,
+    ADDTASK, REMOVETASK, SETMAINTASK,
     CHANGECOST, CHANGEACTIONNAME, CHANGEPRECHECKED, CHANGEPOSTCHECKED,
     ADDPRECONDITION, REMOVEPRECONDITION, ADDPOSTCONDITION, REMOVEPOSTCONDITION,
-    REMOVETASKCONDITION, REMOVEACTIONCONDITION
+    REMOVETASKCONDITION, REMOVEACTIONCONDITION, ADDWORLDSTATE, REMOVEWORLDSTATE, CHANGEWORLDSTATE,
 } from './actions-types';
 
 
@@ -21,8 +21,9 @@ export const changeGoalChecked = (taskIndex, targetIndex, checked) => ({ type: C
 
 
 
-export const addTask = (name) => ({ type: ADDTASK, data: name })
+export const addTask = (name) => ({ type: ADDTASK, name })
 export const removeTask = (index) => ({ type: REMOVETASK, data: index })
+export const setMainTask = (taskIndex, checked) => ({ type: SETMAINTASK, taskIndex, checked })
 export const removeTaskCondition = (index) => ({ type: REMOVETASKCONDITION, index })
 
 export const addAction = (name) => ({ type: ADDACTION, name })
@@ -36,6 +37,11 @@ export const removePostCondition = (actionIndex, targetIndex) => ({ type: REMOVE
 export const changeCost = (actionIndex, value) => ({ type: CHANGECOST, actionIndex, value })
 export const changeActionName = (actionIndex, name) => ({ type: CHANGEACTIONNAME, actionIndex, name })
 export const removeAction = (index) => ({ type: REMOVEACTION, index })
+
+
+export const addWorldState = (index) => ({ type: ADDWORLDSTATE, index })
+export const removeWorldState = (index) => ({ type: REMOVEWORLDSTATE, index })
+export const changeWorldState = (index, checked) => ({ type: CHANGEWORLDSTATE, index, checked })
 
 const receiveConditions = (conditions) => ({ type: RECEIVECONDITIONS, data: conditions })
 

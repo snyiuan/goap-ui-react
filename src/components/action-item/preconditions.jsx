@@ -51,6 +51,7 @@ const PreConditions = (props) => {
             <Checkbox
               checked={item.checked}
               onChange={(e) => handleChecked(props.index, index, e)}
+              style={{ color: item.checked ? "green" : "red" }}
             >
               {props.conditions[item.index].name}
             </Checkbox>

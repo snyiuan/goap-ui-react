@@ -4,6 +4,7 @@ export const CHANGECONDITION = 'change_condition'
 
 export const ADDTASK = 'add_task'
 export const REMOVETASK = 'remove_task'
+export const SETMAINTASK = 'set_main_task'
 export const REMOVETASKCONDITION = 'remove_task_condition'
 
 export const ADDGOAL = 'add_goal'
@@ -23,5 +24,8 @@ export const CHANGEACTIONNAME = 'change_action_name'
 export const CHANGEPRECHECKED = 'change_pre_checked'
 export const CHANGEPOSTCHECKED = 'change_post_checked'
 
+export const ADDWORLDSTATE = 'add_world_state'
+export const REMOVEWORLDSTATE = "remove_world_state"
+export const CHANGEWORLDSTATE = "change_world_state"
 
 export const RECEIVECONDITIONS = 'receive_conditions'

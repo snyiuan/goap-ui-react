@@ -17,7 +17,7 @@ const ActionList = (props) => {
         }}
         split
         size="small"
-        header={<div>head</div>}
+        header={<div>content</div>}
         bordered
         dataSource={props.actions}
         renderItem={(action, index) => (
