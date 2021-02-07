@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Button } from "antd";
+import { Layout } from "antd";
 import HeadNav from "../head-nav/head-nav";
 import MContent from "../m-content/m-content";
 import MSider from "../m-sider/m-sider";
@@ -35,9 +35,6 @@ const App = () => {
         </Layout>
         <Footer>
           <MFooter></MFooter>
-          <Button type="primary">Primary Button</Button>
-          <Button type="primary">Primary Button</Button>
-          <Button type="primary">Primary Button</Button>
         </Footer>
       </Layout>
     </div>

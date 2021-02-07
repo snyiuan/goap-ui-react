@@ -8,8 +8,8 @@ export default class MSider extends Component {
     return (
       <div>
         <Conditions></Conditions>
-        <WorldState></WorldState>
         <Tasks></Tasks>
+        <WorldState></WorldState>
       </div>
     );
   }

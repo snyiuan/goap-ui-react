@@ -1,6 +1,7 @@
 export const ADDCONDITION = 'add_condition'
 export const REMOVECONDITION = 'remove_condition'
 export const CHANGECONDITION = 'change_condition'
+export const RENAMECONDITION = 'rename_condition'
 
 export const ADDTASK = 'add_task'
 export const REMOVETASK = 'remove_task'
@@ -27,5 +28,7 @@ export const CHANGEPOSTCHECKED = 'change_post_checked'
 export const ADDWORLDSTATE = 'add_world_state'
 export const REMOVEWORLDSTATE = "remove_world_state"
 export const CHANGEWORLDSTATE = "change_world_state"
+
+export const GENERATERESULTS = 'generate_results'
 
 export const RECEIVECONDITIONS = 'receive_conditions'

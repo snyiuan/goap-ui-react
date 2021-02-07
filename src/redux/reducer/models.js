@@ -10,11 +10,13 @@ import {
     ADDPOSTCONDITION, REMOVEPOSTCONDITION,
     CHANGEPRECHECKED, CHANGEPOSTCHECKED,
     REMOVEACTIONCONDITION,
-    ADDWORLDSTATE, REMOVEWORLDSTATE, CHANGEWORLDSTATE, SETMAINTASK
+    ADDWORLDSTATE, REMOVEWORLDSTATE, CHANGEWORLDSTATE, SETMAINTASK,
+    GENERATERESULTS,
+    RENAMECONDITION
 
 } from '../actions/actions-types';
 import { message } from 'antd';
-
+import { Action, State, plan_ui } from '../../generate/kgoap.esm.js';
 /* const initState = {
     conditions:
         [{ name: 'condition a', repeated: false }, { name: 'condition b', repeated: false }],
@@ -38,8 +40,9 @@ const models = (state = {
         [{ name: 'action1', cost: 0, preConditions: [], postConditions: [] }],
     tasks:
         [{ name: 'task1', main: false, goalConditions: [] }],
-    worldStates:
-        []
+    worldStates: [],
+    results: []
+    // results: [['act1', [['cond1', false], ['cond2', true]]], ['act2', [['cond2-1', true], ['cond2-2', false]]]]
 }, action) => {
     let { conditions, actions, tasks, worldStates } = state;
     switch (action.type) {
@@ -96,6 +99,15 @@ const models = (state = {
             }
             conditions[action.index].name = action.name
             return { ...state, conditions: [...conditions] };
+
+        case RENAMECONDITION:
+            if (conditions.find(val => val.name === action.name)) {
+                message.info('Conditions are repeated!!!')
+                return state;
+            } else {
+                conditions[action.index].name = action.name;
+            }
+            return { ...state, conditions: [...conditions] }
 
         //tasks
 
@@ -224,6 +236,37 @@ const models = (state = {
         case CHANGEWORLDSTATE:
             worldStates[action.index].checked = action.checked;
             return { ...state, worldStates: [...worldStates] }
+        case GENERATERESULTS:
+            // const { worldStates, conditions, tasks, stateActions } = state
+            let initial_state = new State();
+            let goal_state = new State();
+            let allowed_actions = [];
+            worldStates.forEach(val => {
+                initial_state.set(conditions[val.index].name, val.checked)
+            })
+
+            tasks.forEach(task => {
+                if (task.main) {
+                    task.goalConditions.forEach(val => {
+                        goal_state.set(conditions[val.index].name, val.checked)
+                    })
+                }
+            })
+            if (goal_state.size === 0) {
+                message.info('Please select a main tasks', 1)
+            }
+            actions.forEach(v => {
+                let pre_conditions = new State();
+                let post_conditions = new State();
+                v.preConditions.forEach(pre => {
+                    pre_conditions.set(conditions[pre.index].name, pre.checked);
+                })
+                v.postConditions.forEach(post => {
+                    post_conditions.set(conditions[post.index].name, post.checked);
+                })
+                allowed_actions.push(new Action(v.name, v.cost, pre_conditions, post_conditions));
+            })
+            return { ...state, results: [...plan_ui(initial_state, goal_state, allowed_actions)] }
         default:
             return state;
     }

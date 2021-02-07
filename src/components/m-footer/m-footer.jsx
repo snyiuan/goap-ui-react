@@ -1,7 +1,12 @@
 import { Component } from "react";
+import ResultStep from "./results-step";
 
 export default class MFooter extends Component {
   render() {
-    return <div>mfooter</div>;
+    return (
+      <>
+        <ResultStep></ResultStep>
+      </>
+    );
   }
 }
